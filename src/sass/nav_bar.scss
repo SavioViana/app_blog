@@ -1,0 +1,35 @@
+@import '@/sass/_variable.scss';
+
+.nav {
+    
+    .nav-bar {
+        display: flex;
+        text-align: center;
+        background-color: $color-white;
+        margin: auto;
+        min-height: 1em;
+        padding: 1em;
+        
+        li {
+            list-style: none;
+            flex: 1;
+
+            a {
+                color: $color-black-dark;
+                font-weight: 500;
+                font-size: 1.5em;
+                text-decoration: none;
+            }
+        }
+
+        li:hover {
+            cursor: pointer;
+            color: $color-black-gray;
+
+            a:hover {
+                cursor: pointer;
+                color: $color-black-gray;
+            }
+        }
+    }
+}

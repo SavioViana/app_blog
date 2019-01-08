@@ -1,0 +1,33 @@
+@import '@/sass/_variable.scss';
+
+.tag-header{
+    font-size: 4em;
+    text-transform: uppercase;
+    color: $color-black-dark;
+    text-align: center;
+}
+.list-tag {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+
+    ul {
+        li {
+            list-style: none;
+            margin-bottom: 1em;
+
+            a {
+                color: $color-black-dark;
+                text-transform: capitalize;
+                font-weight: 500;
+                font-size: 2em;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: $color-black-gray;
+                text-decoration: underline;
+            }
+        }
+    }
+}

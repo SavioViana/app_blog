@@ -1,0 +1,40 @@
+@import '@/sass/_variable.scss';
+    
+.post-title {
+    font-size: 4em;
+    text-transform: uppercase;
+    color: $color-black-dark;
+    text-align: center;
+}
+.post-body {
+    text-align: justify;
+    color: $color-black-dark;
+}
+.post-footer {
+    margin-top: 5em;
+    display: flex;
+}
+.post-tag {
+    flex: 1;
+
+    a{
+        margin-left: 1em;
+        font-weight: 600;
+        font-size: 1em;
+        color: rgba(0, 128, 255, 0.8);
+    }
+
+    a:hover {
+        color: rgba(0, 128, 255, 1);
+        font-weight: 800;
+    }
+
+    span {
+        color: rgba(0, 0, 0, 1);
+        font-weight: 800;
+    }
+}
+
+.post-date {
+    color: $color-black-dark;
+}

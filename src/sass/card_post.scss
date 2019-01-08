@@ -1,0 +1,43 @@
+@import '@/sass/_variable.scss';
+
+.card {
+    margin-top: 2em;
+    background: #fff;
+    height: auto;
+    width: 50%;
+    padding: 1em;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 13px 0px;
+
+    .card-header {
+        text-align: center;
+        color: $color-black-dark;
+    }
+
+    .card-content {
+        text-align: justify;
+        text-justify: inter-word;
+        color: $color-black-dark;
+    }
+
+    .card-footer {
+        display: flex;
+        color: $color-black-gray;
+
+        a {
+            flex: 1;
+            color: rgba(0, 128, 255, 0.8);
+        }
+
+        a:hover {
+            flex: 1;
+            color: rgba(0, 128, 255, 1);
+            font-weight: 800;
+        }
+    }
+}
+
+@media all and (max-width: 720px) {
+    .card  {
+        width: auto;
+    }
+}
