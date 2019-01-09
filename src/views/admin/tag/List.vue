@@ -42,6 +42,7 @@
 import {http} from '@/providers/config'
 import navBar from '@/components/NavBar.vue'
 import Tag from '@/providers/tags'
+import User from '@/providers/users'
 
 export default {
     name: "listTag",
@@ -52,6 +53,12 @@ export default {
         }
     },
     components: {navBar},
+    beforeCreate() {
+        User.authUser()
+            .catch((error) =>{
+                this.$router.push('/login')
+            })
+    },
     mounted() {
         Tag.list().then(
             response => (

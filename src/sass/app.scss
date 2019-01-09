@@ -31,6 +31,26 @@
     background-color: $color_white;
 }
 
+.btn-success {
+    padding: 0.5em;
+    background: rgba(0, 153, 51, 0.9);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    border-radius: 0.5em;
+    font-size: 1.2em;
+    font-weight: 800;
+
+    .btn-success:hover {
+        background: rgba(0, 153, 51, 2);
+    }
+}
+.btn-tab {
+    width: 100%;
+}
+
+.danger{
+    color: red;
+}
 
 @media all and (max-width: 720px) {
     .container{

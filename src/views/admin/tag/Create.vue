@@ -37,6 +37,7 @@
 import navBar from '@/components/NavBar.vue'
 import {http} from '@/providers/config'
 import Tag from '@/providers/tags'
+import User from '@/providers/users'
 
 export default {
     name: "createPost",
@@ -50,6 +51,12 @@ export default {
     },
     components: {
         navBar
+    },
+    beforeCreate() {
+        User.authUser()
+            .catch((error) =>{
+                this.$router.push('/login')
+            })
     },
     methods: {
         saveTag: function () {

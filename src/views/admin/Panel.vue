@@ -47,6 +47,7 @@
 import navBar from '@/components/NavBar.vue'
 import {http} from '@/providers/config'
 import Post from '@/providers/posts'
+import User from '@/providers/users'
 
 export default {
     name: "panel",
@@ -57,6 +58,12 @@ export default {
         }
     },
     components: {navBar},
+    beforeCreate() {
+        User.authUser()
+            .catch((error) =>{
+                this.$router.push('/login')
+            })
+    },
     mounted() {
         Post.list().then(
             response => (

@@ -7,6 +7,7 @@ import TagsPost from './views/TagsPost.vue'
 
 /*admin*/
 import Login from './views/admin/Login.vue'
+import Logout from './views/admin/Logout.vue'
 import Register from './views/admin/Register.vue'
 import PostCreate from './views/admin/post/Create.vue'
 import Panel from './views/admin/Panel.vue'
@@ -78,6 +79,11 @@ export default new Router({
       path: '/admin/tag/edit/:id', 
       name: 'ediTag',
       component: CreateTag
+    },
+    {
+      path: '/admin/logout', 
+      name: 'logout',
+      component: Logout
     },
     
   ]

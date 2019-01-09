@@ -1,12 +1,10 @@
 <template>
-    <div class="form-login">
+    <div class="form-center">
         <div class="form">
             <h2>Log-In</h2>
-            <ul v-if="errors && errors.length">
-                <li v-for="error of errors">
-                    {{error}}
-                </li>
-            </ul>
+
+            <span class="danger" v-if="error">{{error}}</span>
+
             <form @submit.prevent="autentication" method="POST">
                 <div class="form-group">
                     <label class="form-label">E-mail
@@ -30,7 +28,8 @@
 </template>
 
 <script>
-import {http} from '@/providers/config'
+
+import User from '@/providers/users'
 
 export default {
     name: "login",
@@ -40,68 +39,33 @@ export default {
                 email: '',
                 password: '',
             },
-            errors: [],
+            error: '',
             token: {},
         }
     },
-    methods: {
-        autentication: function () {
-
-            http.post('/login', this.form).then(response => {
-                this.token = response.data.token
-                console.log(this.token)
-                localStorage.setItem('user-token', this.token)
+    beforeCreate() {
+        User.authUser()
+            .then((response) =>{
                 this.$router.push('/admin')
             })
-            .catch(e => {
-                this.errors.push(e.response.data.error)
-                console.log(this.errors)
-            })
-
+    },
+    methods: {
+        autentication: function () {
+            User.login(this.form)
+                .then(response => {
+                    this.token = response.token
+                    localStorage.setItem('user-token', this.token)
+                    this.$router.push('/admin')
+                }).catch((error) => {
+                    this.error = error.response.data.error
+                })
         }
     },
 }
 </script>
 
-<style >
+<style lang="scss" >
     
-    .form-login{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40em;
-    }
-    form {
-        background:rgb(230, 235, 255);
-    }
-    .form-group {
-        padding: 1em;
-    }
-    .form-label {
-        font-size: 1.2em;
-    }
-    .form-input {
-        height: 2em;
-        width: auto;
-        display: block;
-        margin-top: 0.5em;
-        font-size: 1.2em;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-    }
-    .btn-success {
-        padding: 0.5em;
-        background: rgba(0, 153, 51, 0.9);
-        color: rgba(255, 255, 255, 0.8);
-        cursor: pointer;
-        border-radius: 0.5em;
-        font-size: 1.2em;
-        font-weight: 800;
-    }
-    .btn-tab {
-        width: 100%;
-    }
-    .btn-success:hover {
-        background: rgba(0, 153, 51, 2);
-    }
+    @import '@/sass/form.scss';
+    
 </style>
