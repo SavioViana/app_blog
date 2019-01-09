@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import SinglePost from './views/SinglePost.vue'
 import TagsPost from './views/TagsPost.vue'
-
+import ListPostTag from './views/ListPostTag.vue'
 
 /*admin*/
 import Login from './views/admin/Login.vue'
@@ -26,7 +26,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/post/:id',
+      path: '/post/:id/:slug',
       name: 'single_post',
       component:  SinglePost
     },
@@ -34,6 +34,11 @@ export default new Router({
       path: '/tag',
       name: 'tag',
       component:  TagsPost
+    },
+    {
+      path: '/tag/:id',
+      name: 'posts_tag',
+      component:  ListPostTag
     },
     {
       path: '/login', 

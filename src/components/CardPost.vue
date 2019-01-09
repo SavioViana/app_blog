@@ -11,7 +11,7 @@
         <footer class="card-footer">
             
             <slot></slot>
-            
+            <span class="author-post-card">Author: {{this.author}}</span>
             <span>{{this.date}}</span>
         </footer>
     </div>
@@ -22,6 +22,7 @@
         name: "cardPost",
         props: {
             title: null,
+            author: null,
             body: null,
             date: null,
             redirect: null,

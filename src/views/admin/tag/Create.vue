@@ -8,11 +8,13 @@
             <h2>Create New tag</h2>
                 
                 <div class="form ">
-                    <ul v-if="errors && errors.length">
-                        <li v-for="error of errors">
-                            {{error}}
-                        </li>
-                    </ul>
+                    <div v-if="errors && errors.length">
+                        <ul class="danger" v-for="error of errors">
+                            <li class="danger" v-for="e of error">
+                                {{e[0]}}
+                            </li>
+                        </ul>
+                    </div>
                     <form class="bg-white"  @submit.prevent="saveTag" method="POST">
                         <div class="form-group">
                             <label class="form-label">Name

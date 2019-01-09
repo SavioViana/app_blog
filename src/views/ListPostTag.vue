@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <headerMain></headerMain>
-
+        <navBar></navBar>
+        <h1 class="tag-post-title">Tag: {{this.tag.name}}</h1>
         <div class="container-flur">  
             <cardPost v-for="post in posts" 
                         :title="post.title"
@@ -9,7 +9,7 @@
                         :body="post.body" 
                         :date="post.created_at"
                         :redirect="post.id">
-                        <router-link :to="'/post/' + post.id + '/' + post.slug ">More...</router-link>
+                        <router-link :to="'/post/' + post.id">More...</router-link>
             </cardPost>  
         </div>          
     </div>
@@ -19,21 +19,29 @@
 // @ is an alias to /src
 import headerMain from '@/components/HeaderMain.vue'
 import cardPost from '@/components/CardPost.vue'
+import navBar from '@/components/NavBar.vue'
 import Post from '@/providers/posts'
-
+import Tag from '@/providers/tags'
 export default {
     name: 'home',
     data() {
         return {
             posts: {},
+            tag: {}
         }
     },
     components: {
-        headerMain,
+        navBar,
         cardPost
     },
     mounted() {
-        Post.list().then(
+        Tag.single(this.$route.params.id).then(
+            response => (
+                this.tag = response.data.data
+            )
+        )
+
+        Post.postsTag(this.$route.params.id).then(
             response => (
                 this.posts = response.data.data
             )
@@ -41,3 +49,12 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+    @import '@/sass/_variable.scss';
+    .tag-post-title {
+        text-align: center;
+        font-size: 3em;
+        color: $color-black-dark;
+    }
+</style>
