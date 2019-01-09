@@ -18,6 +18,19 @@
     min-height: 25em;
 }
 
+.link-group {
+    display: flex;
+    align-items: center;
+
+    a {
+        flex: 1;
+    }
+}
+
+.bg-white {
+    background-color: $color_white;
+}
+
 
 @media all and (max-width: 720px) {
     .container{

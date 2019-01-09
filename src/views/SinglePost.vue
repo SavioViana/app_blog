@@ -19,7 +19,7 @@
                 </div>
                 <span class="post-date">{{this.post.created_at}}</span>
             </div>
-            
+            <router-link :to="'/admin/post/edit/' + post.id">Editar</router-link>
         </section>
     </div>
 </template>
@@ -39,11 +39,13 @@ export default {
     },
     components: {navBar},
     mounted() {
+        
         Post.single(this.$route.params.id).then(
             response => (
                 this.post = response.data.data
             )
         )
+
     },
 }
 </script>

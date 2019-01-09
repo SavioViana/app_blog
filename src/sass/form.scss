@@ -1,0 +1,66 @@
+@import '@/sass/_variable.scss';
+
+.form-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40em;
+}
+form {
+    //background:rgb(230, 235, 255);
+    margin-bottom: 1em;
+
+    .form-group {
+        padding: 1em;
+    
+        .form-label {
+            font-size: 1.2em;
+        }
+        .form-input {
+            height: 2em;
+            width: -webkit-fill-available;
+            display: block;
+            margin-top: 0.5em;
+            font-size: 1.2em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+        
+        .form-select {
+            height: 2em;
+            width: -webkit-fill-available;
+            display: block;
+            margin-top: 0.5em;
+            font-size: 1.2em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+        
+        .form-textarea {
+            height: 2em;
+            width: -webkit-fill-available;
+            display: block;
+            margin-top: 0.5em;
+            font-size: 1.2em;
+            padding: 0.5em
+        }
+    }
+
+    .group-check {
+        display: flex;
+        flex-direction: row;
+        flex-flow: wrap;
+        padding: 1em;
+    
+        .form-check {
+            margin-right: 2em;
+        }    
+    }
+    
+    .form-span {
+        font-weight: 800;
+        color: $color-black-dark;
+        margin-right: 1em;
+    }
+}
+

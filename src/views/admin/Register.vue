@@ -1,13 +1,19 @@
 <template>
     <div class="form-login">
         <div class="form">
-            <h2>Log-In</h2>
+            <h2>Register</h2>
+            
             <ul v-if="errors && errors.length">
                 <li v-for="error of errors">
                     {{error}}
                 </li>
             </ul>
-            <form @submit.prevent="autentication" method="POST">
+            <form @submit.prevent="register">
+                <div class="form-group">
+                    <label class="form-label">Name
+                        <input class="form-input" name="name" v-model="form.name"  type="text" placeholder="Name">
+                    </label>
+                </div>
                 <div class="form-group">
                     <label class="form-label">E-mail
                         <input class="form-input" name="email" v-model="form.email" type="email" placeholder="E-mail">
@@ -15,47 +21,51 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Password
-                        <input class="form-input" name="password" v-model="form.password" type="password" placeholder="Password">
+                        <input minlength="6" class="form-input" name="password" v-model="form.password" type="password" placeholder="Password">
                     </label>
                 </div>
-                
+                <div class="form-group">
+                    <label class="form-label">Confirmation Password
+                        <input minlength="6" class="form-input" name="password_confirmation" v-model="form.password_confirmation" type="password" placeholder="Password">
+                    </label>
+                </div>
                 <div class="form-group">
                     <button class="btn-success btn-tab" type="submit">Log-in</button>
                 </div>
-            
             </form>
-            <router-link to="/register">Create new account</router-link>
+            <router-link to="/login">back login</router-link>
         </div>
     </div>
 </template>
 
 <script>
+
 import {http} from '@/providers/config'
 
 export default {
-    name: "login",
+    name: "register",
     data() {
         return {
             form: {
+                name: '',
                 email: '',
                 password: '',
+                password_confirmation: ''
             },
             errors: [],
-            token: {},
+            user: {},
         }
     },
     methods: {
-        autentication: function () {
+        register: function () {
 
-            http.post('/login', this.form).then(response => {
-                this.token = response.data.token
-                console.log(this.token)
-                localStorage.setItem('user-token', this.token)
+            http.post('/register', this.form).then(response => {
+                this.user = response.data
+                localStorage.setItem('user-token', this.user.token)
                 this.$router.push('/admin')
             })
             .catch(e => {
-                this.errors.push(e.response.data.error)
-                console.log(this.errors)
+                this.errors.push(e.response.data.errors)
             })
 
         }
