@@ -1,0 +1,36 @@
+@import '@/sass/_variable.scss';
+
+.table-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table {
+    border-collapse: collapse;
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    background-color: $color-white;
+    border-radius: 1em;
+    margin-bottom: 1em;
+    thead {
+        border-radius: 1em;
+        background-color: gray;
+        th {
+            font-weight: 800;
+            color: $color-black-dark;
+            padding: 1em;
+        }
+    }
+
+    tbody {
+        tr {
+            border-top: 1px solid $color-black-gray ;
+        }
+        td {
+            padding: 1em;
+            color: $color-black-gray;
+        }
+    }
+
+}

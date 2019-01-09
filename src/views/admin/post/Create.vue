@@ -153,5 +153,4 @@ export default {
     
 @import '@/sass/form.scss';
 
-
 </style>    

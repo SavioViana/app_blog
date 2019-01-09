@@ -4,87 +4,72 @@
             <navBar admin="admin"></navBar>
         </header>
 
-        <section>
+                <section>
             <div class="container">
-                <h1>Post List</h1>
+                <h1>Tags List</h1>
                 <div class="table-center">
                     
                     <table class="table">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">slug</th>
+                            <th scope="col">Name</th>
                             <th scope="col">options</th>
                             </tr>
                         </thead>
                         <tbody>
             
-                            <tr v-for="(post, index) in posts">
+                            <tr v-for="(tag, index) in tags">
                                 <th scope="row">{{index}}</th>
-                                <td>{{post.title}}</td>
-                                <td>{{post.user_id}}</td>
-                                <td>{{post.slug}}</td>
+                                <td>{{tag.name}}</td>
                                 <td class="link-group">
-                                    <router-link :to="'admin/post/edit/' + post.id">edit</router-link>
-                                    <router-link :to="'admin/post/show/' + post.id">show</router-link>
-                                    <button v-on:click="deletePost(post.id)">delete</button>
+                                    <router-link :to="'tag/edit/' + tag.id">edit</router-link>
+                                    <button v-on:click="deleteTag(tag.id)">delete</button>
                                     
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <router-link class="new-post" to="admin/post/create">New Post</router-link>
+                <router-link class="new-post" to="tag/create">New Tag</router-link>
             </div>
         </section>
-
     </div>
 </template>
 
 <script>
-import navBar from '@/components/NavBar.vue'
+
 import {http} from '@/providers/config'
-import Post from '@/providers/posts'
+import navBar from '@/components/NavBar.vue'
+import Tag from '@/providers/tags'
 
 export default {
-    name: "panel",
+    name: "listTag",
     data() {
         return {
-            posts: {},
+            tags: {},
             errors: []
         }
     },
     components: {navBar},
     mounted() {
-        Post.list().then(
+        Tag.list().then(
             response => (
-                this.posts = response.data.data
+                this.tags = response.data.data
             )
         )
     },
     methods: {
-        deletePost: function (id) {
-            http.delete('/post/'+ id, {
+        
+        deleteTag: function (id) {
+            http.delete('/tag/'+ id, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 },
-                
             }).then(response => {
                 location.reload()
-            })
-            .catch(e => {
-                //this.errors.push(e.response.data.errors);
             })
         }
     }
 }
 </script>
-
-
-<style lang="scss">
-    
-@import '@/sass/table.scss';
-
-</style>
