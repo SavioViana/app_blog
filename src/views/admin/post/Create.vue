@@ -18,7 +18,7 @@
                     <form class="bg-white"  @submit.prevent="savePost" method="POST">
                         <div class="form-group">
                             <label class="form-label">Title
-                                <input class="form-input" name="title" v-model="form.title" type="text" placeholder="Title">
+                                <input class="form-input" name="title" v-model="form.title" type="text"  placeholder="Title">
                             </label>
                         </div>
                         <div class="form-group">
@@ -98,6 +98,7 @@ export default {
     },
     methods: {
         savePost: function () {
+            console.log(this.form)
             if (this.$route.params.id){
                 http.put('/post/'+this.$route.params.id, this.form, {
                     headers: {
@@ -112,6 +113,7 @@ export default {
                     this.errors.push(e.response.data.errors);
                 })
             }else{
+                
                 http.post('/post', this.form, {
                     headers: {
                         "Authorization": "Bearer " + localStorage.getItem('user-token'),
@@ -123,13 +125,11 @@ export default {
                 .catch(e => {
                     this.errors = [];
                     this.errors.push(e.response.data.errors);
-                    console.log(this.errors)
                 })
             }
         }, 
         handleFileUpload(){
             this.form.image = this.$refs.file.files[0];
-            console.log(this.form.image);
         }
     },
     mounted() {
@@ -148,14 +148,6 @@ export default {
                     this.form.body = response.data.data.body
                 )
             )
-            /*
-            let tagsList = this.form.tags;
-            this.form.tags = [];
-            [...tagsList].forEach(tag => {
-                this.form.tags.push(tag.id)
-            }) 
-            */
-            
         }
     },
 
