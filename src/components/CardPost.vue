@@ -2,6 +2,7 @@
 <template>
     <div class="card">
         <header class="card-header">
+            <img v-if="this.image" :src="'http://127.0.0.1:8000/api/storage/' + this.image" alt="imgae-post">
             <h2>{{this.title}}</h2>
         </header>
         <hr>
@@ -13,6 +14,7 @@
             <slot></slot>
             <span class="author-post-card">Author: {{this.author}}</span>
             <span>{{this.date}}</span>
+            
         </footer>
     </div>
 </template>
@@ -23,6 +25,7 @@
         props: {
             title: null,
             author: null,
+            image: null,
             body: null,
             date: null,
             redirect: null,

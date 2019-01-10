@@ -11,6 +11,11 @@
     .card-header {
         text-align: center;
         color: $color-black-dark;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     .card-content {

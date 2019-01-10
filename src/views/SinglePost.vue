@@ -4,8 +4,10 @@
         
         <section class="container">
         <article>
-            <h1 class="post-title">{{this.post.title}}</h1>
             
+            <h1 class="post-title">{{this.post.title}}</h1>
+            <img :src="'http://127.0.0.1:8000/api/storage/' + this.post.image" alt="">
+
             <p class="post-body">{{this.post.body}}</p>
             </article>
 
@@ -34,7 +36,8 @@ export default {
     data() {
         return {
             post: {},
-            user: null
+            user: null,
+            image: null
         }
     },
     components: {navBar},
@@ -53,7 +56,6 @@ export default {
                 this.post = response.data.data
             )
         )
-
     },
 }
 </script>
@@ -66,5 +68,10 @@ export default {
     .author-post {
         margin-right: 1em;
         color: $color-black-dark;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
     }
 </style>

@@ -24,7 +24,7 @@
                             <tr v-for="(post, index) in posts">
                                 <th scope="row">{{index}}</th>
                                 <td>{{post.title}}</td>
-                                <td>{{post.user_id}}</td>
+                                <td>{{post.author.name}}</td>
                                 <td>{{post.slug}}</td>
                                 <td class="link-group">
                                     <router-link :to="'admin/post/edit/' + post.id">edit</router-link>

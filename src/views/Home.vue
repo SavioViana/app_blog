@@ -5,6 +5,7 @@
         <div class="container-flur">  
             <cardPost v-for="post in posts" 
                         :title="post.title"
+                        :image="(post.image)"
                         :author="post.author.name"
                         :body="post.body" 
                         :date="post.created_at"
@@ -41,3 +42,4 @@ export default {
     }
 }
 </script>
+

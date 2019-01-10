@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Image
-                                <input class="form-input" name="image" v-model="form.image" type="slug" placeholder="Image">
+                                <input class="form-input" type="file" id="file" ref="file" v-on:change="handleFileUpload()">
                             </label>
                         </div>
                         <div class="form-group">
@@ -101,30 +101,36 @@ export default {
             if (this.$route.params.id){
                 http.put('/post/'+this.$route.params.id, this.form, {
                     headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token')
+                        "Authorization": "Bearer " + localStorage.getItem('user-token'),
                     },
                     
                 }).then(response => {
                     this.$router.push('/admin')
                 })
                 .catch(e => {
+                    this.errors = [];
                     this.errors.push(e.response.data.errors);
                 })
             }else{
                 http.post('/post', this.form, {
                     headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token')
+                        "Authorization": "Bearer " + localStorage.getItem('user-token'),
                     },
                     
                 }).then(response => {
                     this.$router.push('/admin')
                 })
                 .catch(e => {
-                this.errors.push(e.response.data.errors);
+                    this.errors = [];
+                    this.errors.push(e.response.data.errors);
                     console.log(this.errors)
                 })
             }
         }, 
+        handleFileUpload(){
+            this.form.image = this.$refs.file.files[0];
+            console.log(this.form.image);
+        }
     },
     mounted() {
         Tag.list().then(
