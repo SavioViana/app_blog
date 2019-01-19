@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <navBar admin="admin"></navBar>
+            <navBarAdmin></navBarAdmin>
         </header>
 
         <section>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import navBar from '@/components/NavBar.vue'
+import navBarAdmin from '@/components/NavBarAdmin.vue'
 import {http} from '@/providers/config'
 import Post from '@/providers/posts'
 import User from '@/providers/users'
@@ -57,7 +57,7 @@ export default {
             errors: []
         }
     },
-    components: {navBar},
+    components: {navBarAdmin},
     beforeCreate() {
         User.authUser()
             .catch((error) =>{
@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         deletePost: function (id) {
-            http.delete('/post/'+ id, {
+            http.delete('/posts/'+ id, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 },

@@ -2,7 +2,7 @@
     <div class="home">
         <headerMain></headerMain>
 
-        <div class="container-flur">  
+        <div class="container">  
             <cardPost v-for="post in posts" 
                         :title="post.title"
                         :image="(post.image)"

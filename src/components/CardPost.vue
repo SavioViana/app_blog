@@ -14,8 +14,19 @@
             <slot></slot>
             <span class="author-post-card">Author: {{this.author}}</span>
             <span>{{this.date}}</span>
-            
         </footer>
+        <hr>
+        <div class="comments">
+            <ul class="comments-list">
+                <li>sdfghjklçsadjasdhkah dkadhaksdhsakjxncn,cmns,hdjashdkjashd asdasdg</li>
+                <li>sdfghjklçsadjasdhkah dkadhaksdhsakjxncn,cmns,hdjashdkjashd asdasdg</li>
+            </ul>
+        </div>
+
+        <div >
+            <input class="comment-input" type="text" placeholder="Paste your comment">
+            <button class="btn-success" >Send</button>
+        </div>
     </div>
 </template>
 
@@ -37,4 +48,27 @@
 
     @import '@/sass/card_post.scss';
     
+    .comment-input {
+        width: 80%;
+        border-radius: 10px;
+        height: 30px;
+        margin-top: 20px;
+        border: 1px solid blue;
+        padding: 5px;
+        margin-right: 10px;
+    }
+
+    .comments {
+
+        .comments-list {
+
+            li {
+                list-style: none;
+                background-color: $color-gray-light;
+                border-radius: 10px;
+                padding: 10px;
+                margin-top: 5px;
+            }
+        }
+    }
 </style>

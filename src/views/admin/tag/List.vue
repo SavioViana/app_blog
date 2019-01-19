@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <navBar admin="admin"></navBar>
+            <navBarAdmin></navBarAdmin>
         </header>
 
                 <section>
@@ -40,7 +40,7 @@
 <script>
 
 import {http} from '@/providers/config'
-import navBar from '@/components/NavBar.vue'
+import navBarAdmin from '@/components/NavBarAdmin.vue'
 import Tag from '@/providers/tags'
 import User from '@/providers/users'
 
@@ -52,7 +52,7 @@ export default {
             errors: []
         }
     },
-    components: {navBar},
+    components: {navBarAdmin},
     beforeCreate() {
         User.authUser()
             .catch((error) =>{
