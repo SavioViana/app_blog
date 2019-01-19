@@ -5,7 +5,7 @@
         <h1 class="tag-header">All Tags My Blog</h1>
         <div class="list-tag">
             <ul>
-                <li v-for="tag in tags"><router-link :to="'/tag/' + tag.id">{{tag.name}}</router-link></li>
+                <li v-for="tag in tags" :key="tag.id"><router-link :to="'/tag/' + tag.id">{{tag.name}}</router-link></li>
             </ul>
         </div>
         </section>

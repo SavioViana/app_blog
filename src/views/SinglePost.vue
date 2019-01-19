@@ -14,7 +14,7 @@
             <div class="post-footer">
                 <div class="post-tag">
                     <span>Tags: </span>
-                    <a v-for="tag in post.tags" href="#">{{tag.name}}</a>
+                    <a v-for="tag in post.tags" :key="tag.id" href="#">{{tag.name}}</a>
                 </div>
                 <span class="author-post" >Author: {{this.post.author.name}}</span>
                 <span class="post-date">{{this.post.created_at}}</span>

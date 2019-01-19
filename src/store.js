@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import User from '@/providers/users'
+import Post from '@/providers/posts'
+import Tag from '@/providers/tags'
 
 Vue.use(Vuex)
 
@@ -14,6 +16,7 @@ export default new Vuex.Store({
         loading: false,
         auth_error: null,
         posts: [],
+        tags: [],
     },
     getters: {
         isLoading(state){
@@ -35,6 +38,10 @@ export default new Vuex.Store({
         posts(state){
             return state.posts
         },
+
+        tags(state){
+            return state.tags
+        }
     },
     mutations: {
         auth(state){
@@ -65,10 +72,34 @@ export default new Vuex.Store({
         tokenExpirado(state){
             state.auth_error = 'Token Expirado'
         },
+
+        updatePosts(state, payload){
+            state.posts = payload
+        },
+
+        updateTags(state, payload) {
+            state.tags = payload
+        },
     },
     actions: {
         auth(context){
             context.commit("auth")
         },
+        getPosts(context){
+            Post.list().then(
+                response => (
+                    context.commit('updatePosts', response.data.data )
+                )
+            )
+        },
+
+        getTags(context) {
+            Tag.list().then(
+                response => (
+                    context.commit('updateTags', response.data.data )
+                )
+            )
+        },
+
     }
 })

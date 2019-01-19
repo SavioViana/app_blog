@@ -18,16 +18,22 @@
                             </tr>
                         </thead>
                         <tbody>
-            
-                            <tr v-for="(tag, index) in tags">
-                                <th scope="row">{{index}}</th>
-                                <td>{{tag.name}}</td>
-                                <td class="link-group">
-                                    <router-link :to="'tag/edit/' + tag.id">edit</router-link>
-                                    <button v-on:click="deleteTag(tag.id)">delete</button>
-                                    
-                                </td>
-                            </tr>
+                            <template v-if="!tags.length">
+                                <tr>
+                                    <td colspan="3" class="text-center">Not tag created</td>
+                                </tr>
+                            </template>
+                            <template v-else>
+                                <tr v-for="(tag, index) in tags" :key="tag.id">
+                                    <th scope="row">{{index}}</th>
+                                    <td>{{tag.name}}</td>
+                                    <td class="link-group">
+                                        <router-link :to="'tag/edit/' + tag.id">edit</router-link>
+                                        <button v-on:click="deleteTag(tag.id)">delete</button>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -46,24 +52,21 @@ import User from '@/providers/users'
 
 export default {
     name: "listTag",
-    data() {
-        return {
-            tags: {},
-            errors: []
-        }
+    components: {
+        navBarAdmin
     },
-    components: {navBarAdmin},
     mounted() {
-        Tag.list().then(
-            response => (
-                this.tags = response.data.data
-            )
-        )
+        this.$store.dispatch('getTags')
+    },
+    computed: {
+        tags() {
+            return this.$store.getters.tags
+        }
     },
     methods: {
         
         deleteTag: function (id) {
-            http.delete('/tag/'+ id, {
+            http.delete('/tags/'+ id, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 },

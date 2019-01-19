@@ -9,8 +9,8 @@
                 
                 <div class="form ">
                     <div v-if="errors && errors.length">
-                        <ul class="danger" v-for="error of errors">
-                            <li class="danger" v-for="e of error">
+                        <ul class="danger" v-for="error of errors" :key="error">
+                            <li class="danger" v-for="e of error" :key="e">
                                 {{e[0]}}
                             </li>
                         </ul>
@@ -37,9 +37,7 @@
 <script>
 
 import navBarAdmin from '@/components/NavBarAdmin.vue'
-import {http} from '@/providers/config'
 import Tag from '@/providers/tags'
-import User from '@/providers/users'
 
 export default {
     name: "createPost",
@@ -57,29 +55,19 @@ export default {
     methods: {
         saveTag: function () {
             if (this.$route.params.id){
-                http.put('/tag/'+this.$route.params.id, this.form, {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token')
-                    },
-                    
-                }).then(response => {
-                    this.$router.push('/admin/tag')
-                })
-                .catch(e => {
-                    this.errors.push(e.response.data.errors);
-                })
+                Tag.update(this.$route.params.id, this.$data.form)
+                    .then(() => {
+                        this.$router.push({path: '/admin/tag'})
+                    }).catch((e) => {
+                        this.errors.push(e.response.data.errors);
+                    })
             }else{
-                http.post('/tag', this.form, {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token')
-                    },
-                    
-                }).then(response => {
-                    this.$router.push('/admin/tag')
-                })
-                .catch(e => {
-                    this.errors.push(e.response.data.errors);
-                })
+                Tag.create(this.$data.form)
+                    .then(() => {
+                        this.$router.push({path: '/admin/tag'})
+                    }).catch((e) => {
+                        this.errors.push(e.response.data.errors);
+                    })
             }
         }, 
     },

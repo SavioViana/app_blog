@@ -3,7 +3,7 @@
         <headerMain></headerMain>
 
         <div class="container">  
-            <cardPost v-for="post in posts" 
+            <cardPost v-for="post in posts" :key="post.id"
                         :title="post.title"
                         :image="(post.image)"
                         :author="post.author.name"

@@ -20,19 +20,25 @@
                             </tr>
                         </thead>
                         <tbody>
-            
-                            <tr v-for="(post, index) in posts">
-                                <th scope="row">{{index}}</th>
-                                <td>{{post.title}}</td>
-                                <td>{{post.author.name}}</td>
-                                <td>{{post.slug}}</td>
-                                <td class="link-group">
-                                    <router-link :to="'admin/post/edit/' + post.id">edit</router-link>
-                                    <router-link :to="'admin/post/show/' + post.id">show</router-link>
-                                    <button v-on:click="deletePost(post.id)">delete</button>
-                                    
-                                </td>
-                            </tr>
+                            <template v-if="!posts.length">
+                                <tr>
+                                    <td colspan="5" class="text-center">Not post created</td>
+                                </tr>
+                            </template>
+                            <template v-else>
+                                <tr v-for="(post, index) in posts" :key="post.id">
+                                    <th scope="row">{{index}}</th>
+                                    <td>{{post.title}}</td>
+                                    <td>{{post.author.name}}</td>
+                                    <td>{{post.slug}}</td>
+                                    <td class="link-group">
+                                        <router-link :to="'admin/post/edit/' + post.id">edit</router-link>
+                                        <router-link :to="'admin/post/show/' + post.id">show</router-link>
+                                        <button v-on:click="deletePost(post.id)">delete</button>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -46,26 +52,19 @@
 <script>
 import navBarAdmin from '@/components/NavBarAdmin.vue'
 import {http} from '@/providers/config'
-import Post from '@/providers/posts'
-import User from '@/providers/users'
 
 export default {
     name: "panel",
-    data() {
-        return {
-            posts: {},
-            errors: []
-        }
-    },
     components: {
         navBarAdmin
     },
     mounted() {
-        Post.list().then(
-            response => (
-                this.posts = response.data.data
-            )
-        )
+        this.$store.dispatch('getPosts')
+    },
+    computed: {
+        posts() {
+            return this.$store.getters.posts
+        }
     },
     methods: {
         deletePost: function (id) {
@@ -73,12 +72,8 @@ export default {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 },
-                
-            }).then(response => {
+            }).then(() => {
                 location.reload()
-            })
-            .catch(e => {
-                //this.errors.push(e.response.data.errors);
             })
         }
     }

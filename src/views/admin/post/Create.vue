@@ -9,8 +9,8 @@
                 
                 <div class="form ">
                     <div v-if="errors && errors.length">
-                        <ul class="danger" v-for="error of errors">
-                            <li class="danger" v-for="e of error">
+                        <ul class="danger" v-for="error of errors" :key="error.id">
+                            <li class="danger" v-for="e of error" :key="e">
                                 {{e[0]}}
                             </li>
                         </ul>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="group-check">
                             <span class="form-span">Tags:</span>
-                            <div class="form-check" v-for="tag in tags">
+                            <div class="form-check" v-for="tag in tags" :key="tag.id">
                                 <input type="checkbox" class="" :id="'tag-' + tag.id" :value="tag.id"  v-model="form.tags" >
                                 <label :for="'tag-' + tag.id" class="" >{{tag.name}}</label>
                             </div>
@@ -63,11 +63,9 @@
 </template>
 
 <script>
-import {http} from '@/providers/config'
 import navBarAdmin from '@/components/NavBarAdmin.vue'
 import Tag from '@/providers/tags'
 import Post from '@/providers/posts'
-import User from '@/providers/users'
 
 export default {
     name: "login",
@@ -83,7 +81,6 @@ export default {
 
             },
             errors: [],
-            token: {},
             tags: [],
         }
     },
@@ -92,34 +89,25 @@ export default {
     },
     methods: {
         savePost: function () {
-            console.log(this.form)
             if (this.$route.params.id){
-                http.put('/post/'+this.$route.params.id, this.form, {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token'),
-                    },
-                    
-                }).then(response => {
-                    this.$router.push('/admin')
-                })
-                .catch(e => {
-                    this.errors = [];
-                    this.errors.push(e.response.data.errors);
-                })
-            }else{
                 
-                http.post('/post', this.form, {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem('user-token'),
-                    },
-                    
-                }).then(response => {
-                    this.$router.push('/admin')
-                })
-                .catch(e => {
-                    this.errors = [];
-                    this.errors.push(e.response.data.errors);
-                })
+                Post.update(this.$route.params.id, this.$data.form)
+                    .then(() => {
+                        this.$router.push({path: '/admin'})
+                    }).catch((e) => {
+                        this.errors = [];
+                        this.errors.push(e.response.data.errors);
+                    })
+
+            }else{
+
+                Post.create(this.$data.form)
+                    .then(() => {
+                        this.$router.push({path: '/admin'})
+                    }).catch((e) => {
+                        this.errors = [];
+                        this.errors.push(e.response.data.errors);
+                    })
             }
         }, 
         handleFileUpload(){
@@ -144,9 +132,6 @@ export default {
             )
         }
     },
-
-              
-
 }
 </script>
 
