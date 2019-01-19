@@ -53,12 +53,6 @@ export default {
         }
     },
     components: {navBarAdmin},
-    beforeCreate() {
-        User.authUser()
-            .catch((error) =>{
-                this.$router.push('/login')
-            })
-    },
     mounted() {
         Tag.list().then(
             response => (

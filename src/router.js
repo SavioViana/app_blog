@@ -57,10 +57,18 @@ export default new Router({
         component: Register
         },
         {
+            path: 'logout', 
+            name: 'logout',
+            component: Logout
+        },
+        {
             path: '/admin', 
             name: 'admin',
             component: {
                 render (c) { return c('router-view') }
+            },
+            meta: {
+                requiresAuth: true,
             },
             children: [
                 {
@@ -115,11 +123,6 @@ export default new Router({
                             component: CreateTag
                         },
                     ]
-                },
-                {
-                    path: 'logout', 
-                    name: 'logout',
-                    component: Logout
                 },
             ]
         }

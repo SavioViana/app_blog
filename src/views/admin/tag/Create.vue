@@ -54,12 +54,6 @@ export default {
     components: {
         navBarAdmin
     },
-    beforeCreate() {
-        User.authUser()
-            .catch((error) =>{
-                this.$router.push('/login')
-            })
-    },
     methods: {
         saveTag: function () {
             if (this.$route.params.id){

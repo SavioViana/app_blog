@@ -2,10 +2,10 @@
     <div class="form-center">
         <div class="form">
             <h2>Register</h2>
-            <div v-if="errors && errors.length">
-                <ul class="danger" v-for="error of errors">
-                    <li class="danger" v-for="e of error">
-                        {{e[0]}}
+            <div v-if="authError">
+                <ul class="danger" v-for="errors in authError" :key="errors.id">
+                    <li class="danger" v-for="e in errors" :key="e">
+                        {{e}}
                     </li>
                 </ul>
             </div>
@@ -53,31 +53,28 @@ export default {
                 password: '',
                 password_confirmation: ''
             },
-            errors: [],
-            user: {},
         }
-    },
-    beforeCreate() {
-        User.authUser()
-            .then((response) =>{
-                this.$router.push('/admin')
-            }).catch((error) =>{
-
-            })
     },
     methods: {
         register: function () {
-            User.register(this.form)
+
+            this.$store.dispatch("auth")
+
+            User.register(this.$data.form)
                 .then(response => {
-                    this.user = response
-                    localStorage.setItem('user-token', this.user.token)
-                    this.$router.push('/admin')
+                    this.$store.commit("authSuccess", response);
+                    this.$router.push({path: '/admin'})
                 }).catch((error) => {
-                    this.errors = [];
-                    this.errors.push(error.response.data.errors)
+                    let err = error.response.data.errors
+                    this.$store.commit("authFailed", { err })
                 })
         }
     },
+    computed: {
+        authError(){
+            return this.$store.getters.authError
+        }
+    }
 }
 </script>
 

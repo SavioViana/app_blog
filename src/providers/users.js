@@ -1,12 +1,6 @@
 import {http} from './config'
 
 export default {
-    getToken: () => {
-        if (localStorage.getItem('user-token')) {
-            return localStorage.getItem('user-token')
-        }
-        return false;
-    },
     login:(credentials) => {
         return new Promise ((res, rej) => {
             http.post('/login', credentials)
@@ -29,9 +23,6 @@ export default {
             })
         })
     },
-    logout: () => {
-        localStorage.removeItem('user-token');
-    },
     authUser: () => {
         return new Promise((res, rej) => {
             http.get('/current_user', {
@@ -44,5 +35,14 @@ export default {
                 rej(e)
             })
         })
+    },
+    getAcessToken() {
+        const userToken = localStorage.getItem("user-token")
+    
+        if(!userToken){
+             return null
+        }
+        
+        return userToken
     }
 }

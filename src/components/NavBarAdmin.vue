@@ -4,7 +4,7 @@
         <ul class="nav-bar">
             <li ><router-link to="/admin">Posts</router-link></li>
             <li ><router-link to="/admin/tag">Tag</router-link></li>
-            <li ><router-link to="/admin/logout">Sair</router-link></li>
+            <li ><a @click="logout">Logout</a></li>
         </ul>
     </nav>
 </template>
@@ -12,8 +12,14 @@
 <script>
     export default {
         name: "navBarAdmin",
-        props: {
-    
+        computed: {
+
+        },
+        methods: {
+            logout() {
+                this.$store.commit("logout")
+                this.$router.push({path: '/login'})
+            }
         }
 }
 </script>

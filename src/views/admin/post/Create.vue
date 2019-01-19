@@ -90,12 +90,6 @@ export default {
     components: {
         navBarAdmin
     },
-    beforeCreate() {
-        User.authUser()
-            .catch((error) =>{
-                this.$router.push('/login')
-            })
-    },
     methods: {
         savePost: function () {
             console.log(this.form)

@@ -15,9 +15,7 @@
     export default {    
 
         name: "logout",
-        beforeCreate() {
-            User.logout()
-        },
+        
     }
 
 </script>

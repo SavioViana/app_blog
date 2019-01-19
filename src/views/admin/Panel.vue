@@ -57,12 +57,8 @@ export default {
             errors: []
         }
     },
-    components: {navBarAdmin},
-    beforeCreate() {
-        User.authUser()
-            .catch((error) =>{
-                this.$router.push('/login')
-            })
+    components: {
+        navBarAdmin
     },
     mounted() {
         Post.list().then(

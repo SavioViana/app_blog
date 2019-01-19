@@ -3,7 +3,7 @@
         <div class="form">
             <h2>Log-In</h2>
 
-            <span class="danger" v-if="error">{{error}}</span>
+            <span class="danger" v-if="authError">{{ authError }}</span>
 
             <form @submit.prevent="autentication" method="POST">
                 <div class="form-group">
@@ -39,28 +39,28 @@ export default {
                 email: '',
                 password: '',
             },
-            error: '',
-            token: {},
         }
-    },
-    beforeCreate() {
-        User.authUser()
-            .then((response) =>{
-                this.$router.push('/admin')
-            })
     },
     methods: {
         autentication: function () {
-            User.login(this.form)
+
+            this.$store.dispatch("auth")
+
+            User.login(this.$data.form)
                 .then(response => {
-                    this.token = response.token
-                    localStorage.setItem('user-token', this.token)
-                    this.$router.push('/admin')
+                    this.$store.commit("authSuccess", response);
+                    this.$router.push({path: '/admin'})
                 }).catch((error) => {
-                    this.error = error.response.data.error
+                    let err = error.response.data.error
+                    this.$store.commit("authFailed", { err })
                 })
         }
     },
+    computed: {
+        authError(){
+            return this.$store.getters.authError
+        }
+    }
 }
 </script>
 
