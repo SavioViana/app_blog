@@ -1,6 +1,7 @@
 <template>
     <div>
-        <navBar></navBar>
+        <navBar v-if="!isLoggedIn"></navBar>
+        <navBarAdmin v-if="isLoggedIn"></navBarAdmin>
         
         <section class="container">
             <article>
@@ -16,10 +17,10 @@
                     <span>Tags: </span>
                     <a v-for="tag in post.tags" :key="tag.id" href="#">{{tag.name}}</a>
                 </div>
-                <span class="author-post" >Author: {{this.post.author.name}}</span>
+                <span class="author-post" >Author: {{this.post.author[0].name}}</span>
                 <span class="post-date">{{this.post.created_at}}</span>
             </div>
-            <router-link v-if="this.user != null" :to="'/admin/post/edit/' + post.id">Editar</router-link>
+            <router-link v-if="isLoggedIn" :to="'/admin/post/edit/' + post.id">Editar</router-link>
         
             <hr>
             <comment :post="post" ></comment>
@@ -30,6 +31,7 @@
 <script>
 
 import navBar from '@/components/NavBar.vue'
+import navBarAdmin from '@/components/NavBarAdmin.vue'
 import comment from '@/components/Comment.vue'
 import Post from '@/providers/posts'
 
@@ -45,6 +47,7 @@ export default {
     },
     components: {
         navBar,
+        navBarAdmin,
         comment
     },
     mounted() {
@@ -55,6 +58,11 @@ export default {
             )
         )
     },
+    computed: {
+        isLoggedIn(){
+            return this.$store.getters.isLoggedIn
+        }
+    }
 }
 </script>
 

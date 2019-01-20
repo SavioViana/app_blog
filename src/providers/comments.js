@@ -31,4 +31,18 @@ export default {
             })
         })
     },
+    remove: (id) => {
+        return new Promise ((res, rej) => {
+            http.delete('/comments/'+id, {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem('user-token')
+                }
+            }).then(response => {
+                res(response.data)
+            })
+            .catch(e => {
+                rej(e)
+            })
+        })
+    }
 }

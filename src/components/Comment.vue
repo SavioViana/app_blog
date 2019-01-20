@@ -2,15 +2,21 @@
     <div>
         <div v-if="!!post.comments.length" class="comments">
             <ul class="comments-list">
-                <li v-for="comment in post.comments" :key="comment.id" >{{comment.description}}</li>
+                <li v-for="(comment, index) in post.comments" :key="index" >
+                    
+                    {{comment.description}} 
+                    
+                    <button v-if="isLoggedIn" @click="removeComment(index, comment.id)" type="button" class="btn-rm-comment btn-danger">Remove</button>
+                    
+                </li>
             </ul>
         </div>
         
         <div >
             <input class="comment-input" v-model="newComment" type="text" placeholder="Paste your comment">
-            <button class="btn-success" type="button" @click="addComment(post.id)" >Send</button>
+            <button  class="btn-success" type="button" @click="addComment(post.id)" >Send</button>
         </div>
-
+        
         <div v-if="errors && errors.length">
             <ul class="danger" v-for="(error, index) in errors" :key="index">
                 <li class="danger" v-for="(e, i) of error" :key="i">
@@ -52,6 +58,17 @@ export default {
                         this.errors = [];
                         this.errors.push(error.response.data.errors);
                     })
+            },
+            removeComment(index, commentId) {
+                Comment.remove(commentId)
+                    .then(() => {
+                        this.post.comments.splice(index)
+                    })
+            }
+        },
+        computed: {
+            isLoggedIn(){
+                return this.$store.getters.isLoggedIn
             }
         }
 }
@@ -81,6 +98,7 @@ export default {
                 border-radius: 10px;
                 padding: 10px;
                 margin-top: 5px;
+
             }
         }
     }

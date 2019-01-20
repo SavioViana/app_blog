@@ -100,7 +100,7 @@ export default {
                     })
 
             }else{
-
+                
                 Post.create(this.$data.form)
                     .then(() => {
                         this.$router.push({path: '/admin'})

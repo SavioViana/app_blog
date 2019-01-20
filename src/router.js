@@ -14,6 +14,8 @@ import PostCreate from './views/admin/post/Create.vue'
 import Panel from './views/admin/Panel.vue'
 import ListTag from './views/admin/tag/List.vue'
 import CreateTag from './views/admin/tag/Create.vue'
+import ShowPostAdmin from './views/admin/post/Show.vue'
+
 
 Vue.use(Router)
 
@@ -91,7 +93,7 @@ export default new Router({
                         {
                             path: 'show/:id', 
                             name: 'postShow',
-                            component: SinglePost
+                            component: ShowPostAdmin
                         },
                         {
                             path: 'edit/:id', 
