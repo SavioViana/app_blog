@@ -3,12 +3,12 @@
         <navBar></navBar>
         
         <section class="container">
-        <article>
+            <article>
             
-            <h1 class="post-title">{{this.post.title}}</h1>
-            <img :src="'http://127.0.0.1:8000/api/storage/' + this.post.image" alt="">
+                <h1 class="post-title">{{this.post.title}}</h1>
+                <img :src="'http://127.0.0.1:8000/api/storage/' + this.post.image" alt="">
 
-            <p class="post-body">{{this.post.body}}</p>
+                <p class="post-body">{{this.post.body}}</p>
             </article>
 
             <div class="post-footer">
@@ -20,6 +20,9 @@
                 <span class="post-date">{{this.post.created_at}}</span>
             </div>
             <router-link v-if="this.user != null" :to="'/admin/post/edit/' + post.id">Editar</router-link>
+        
+            <hr>
+            <comment :post="post" ></comment>
         </section>
     </div>
 </template>
@@ -27,8 +30,8 @@
 <script>
 
 import navBar from '@/components/NavBar.vue'
+import comment from '@/components/Comment.vue'
 import Post from '@/providers/posts'
-import User from '@/providers/users'
 
 export default {
     name: "SinglePost",
@@ -40,14 +43,9 @@ export default {
             image: null
         }
     },
-    components: {navBar},
-    beforeCreate() {
-        User.authUser()
-            .then((response) => {
-                this.user = response;
-            }).catch( (err) => {
-
-            })
+    components: {
+        navBar,
+        comment
     },
     mounted() {
         

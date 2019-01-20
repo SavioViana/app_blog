@@ -4,11 +4,8 @@
 
         <div class="container">  
             <cardPost v-for="post in posts" :key="post.id"
-                        :title="post.title"
-                        :image="(post.image)"
-                        :author="post.author.name"
-                        :body="post.body" 
-                        :date="post.created_at"
+                        :post="post"
+                        
                         :redirect="post.id">
                         <router-link :to="'/post/' + post.id + '/' + post.slug ">More...</router-link>
             </cardPost>  
@@ -17,7 +14,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import headerMain from '@/components/HeaderMain.vue'
 import cardPost from '@/components/CardPost.vue'
 import Post from '@/providers/posts'

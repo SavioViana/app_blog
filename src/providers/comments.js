@@ -1,13 +1,11 @@
 import {http} from './config'
 
 export default {
-    list: () => {return http.get('/posts')},
-    single: (id) => {return http.get('/posts/'+id)},
-    postsTag: (id) => {return http.get('/tags/'+id+'/posts')},
-    getImage: (filename) => {return http.get('storage/image_post/'+filename)},
+    list: () => {return http.get('/comments')},
+    single: (id) => {return http.get('/comments/'+id)},
     create: (formData) => {
         return new Promise ((res, rej) => {
-            http.post('/posts', formData, {
+            http.post('/comments', formData, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 }
@@ -21,7 +19,7 @@ export default {
     },
     update: (id, formData) => {
         return new Promise ((res, rej) => {
-            http.put('/posts/'+id, formData, {
+            http.put('/comments/'+id, formData, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('user-token')
                 }
@@ -33,6 +31,4 @@ export default {
             })
         })
     },
-
-
 }
